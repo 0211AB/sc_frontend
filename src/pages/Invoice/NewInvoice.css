@@ -1,0 +1,11 @@
+#invoiceIframeContainer{
+    width:100%;
+    display: flex;
+}
+
+#invoiceIframeContainer iframe{
+    height:700px;
+    min-width:100%;
+    transform:scale(1.0);
+    transform-origin:0 0;
+}
