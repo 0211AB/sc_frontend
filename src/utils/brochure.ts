@@ -2,11 +2,11 @@ import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { palaBase64 } from '../fonts/pala';
 
-(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
-(<any>pdfMake).vfs['Pala.ttf'] = palaBase64
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+pdfMake.vfs['Pala.ttf'] = palaBase64
 
 export const viewinTab = (details: any, selectedOptions: any[]) => {
-    (<any>pdfMake).fonts = {
+    pdfMake.fonts = {
         Roboto: {
             normal: 'Roboto-Regular.ttf',
             bold: 'Roboto-Medium.ttf',

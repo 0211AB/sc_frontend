@@ -1,7 +1,7 @@
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
-(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const a: string[] = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ', 'Eleven ', 'Twelve ', 'Thirteen ', 'Fourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ', 'Eighteen ', 'Nineteen '];
 const b: string[] = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
@@ -28,7 +28,7 @@ function inWords(num: number): string | undefined {
 
 
 export const createInvoice = (details: any, selectedProducts: any[]) => {
-    (<any>pdfMake).fonts = {
+    pdfMake.fonts = {
         Roboto: {
             normal: 'Roboto-Regular.ttf',
             bold: 'Roboto-Medium.ttf',
@@ -239,7 +239,7 @@ export const createInvoice = (details: any, selectedProducts: any[]) => {
 }
 
 export const viewLiveInvoice = (details: any, selectedProducts: any[]) => {
-    (<any>pdfMake).fonts = {
+    pdfMake.fonts = {
         Roboto: {
             normal: 'Roboto-Regular.ttf',
             bold: 'Roboto-Medium.ttf',
@@ -464,7 +464,7 @@ export const viewLiveInvoice = (details: any, selectedProducts: any[]) => {
 }
 
 export const viewinTab = (details: any, selectedProducts: any[]) => {
-    (<any>pdfMake).fonts = {
+    pdfMake.fonts = {
         Roboto: {
             normal: 'Roboto-Regular.ttf',
             bold: 'Roboto-Medium.ttf',

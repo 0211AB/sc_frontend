@@ -1,12 +1,12 @@
-import * as pdfMake from "pdfmake/build/pdfmake";
-import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import  pdfFonts from 'pdfmake/build/vfs_fonts';
+import  pdfMake from "pdfmake/build/pdfmake";
 import { palaBase64 } from '../fonts/pala';
 
-(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
-(<any>pdfMake).vfs['Pala.ttf'] = palaBase64
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+pdfMake.vfs['Pala.ttf'] = palaBase64
 
 export const createQuotation = (details: any, selectedOptions: any[]) => {
-    (<any>pdfMake).fonts = {
+    pdfMake.fonts = {
         Roboto: {
             normal: 'Roboto-Regular.ttf',
             bold: 'Roboto-Medium.ttf',
@@ -135,7 +135,7 @@ export const createQuotation = (details: any, selectedOptions: any[]) => {
 }
 
 export const viewLiveQuotation = (details: any, selectedOptions: any[]) => {
-    (<any>pdfMake).fonts = {
+    pdfMake.fonts = {
         Roboto: {
             normal: 'Roboto-Regular.ttf',
             bold: 'Roboto-Medium.ttf',
@@ -267,7 +267,7 @@ export const viewLiveQuotation = (details: any, selectedOptions: any[]) => {
 }
 
 export const viewinTab = (details: any, selectedOptions: any[]) => {
-    (<any>pdfMake).fonts = {
+    pdfMake.fonts = {
         Roboto: {
             normal: 'Roboto-Regular.ttf',
             bold: 'Roboto-Medium.ttf',
