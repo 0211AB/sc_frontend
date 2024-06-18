@@ -1,5 +1,5 @@
-import * as pdfMake from "pdfmake/build/pdfmake";
-import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import pdfMake from "pdfmake"
+import pdfFonts from "pdfmake/build/vfs_fonts"
 import { palaBase64 } from '../fonts/pala';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
