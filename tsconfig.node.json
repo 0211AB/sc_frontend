@@ -1,10 +1,16 @@
 {
   "compilerOptions": {
-    "composite": true,
-    "skipLibCheck": true,
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true
+      "module": "commonjs",
+      "esModuleInterop": true,
+      "target": "es6",
+      "moduleResolution": "node",
+      "outDir": "./dist",
+      "strict": true
   },
-  "include": ["./vite.config.js"]
+  "include": [
+      "./src/**/*.ts"
+  ],
+  "exclude": [
+      "node_modules"
+  ]
 }
