@@ -5,7 +5,7 @@ import { palaBase64 } from '../fonts/pala';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 pdfMake.vfs['Pala.ttf'] = palaBase64
 
-export const viewinTab = (details: any, selectedOptions: any[]) => {
+export const viewinTab = (details, selectedOptions) => {
     pdfMake.fonts = {
         Roboto: {
             normal: 'Roboto-Regular.ttf',
@@ -29,7 +29,7 @@ export const viewinTab = (details: any, selectedOptions: any[]) => {
         ]
     ];
 
-    selectedOptions.forEach((option: any, index: number) => {
+    selectedOptions.forEach((option, index) => {
         tableBody.push([
             { text: (index + 1).toString(), alignment: 'center', bold: false },
             { text: option?.productRef?.name, alignment: 'center', bold: false },
@@ -38,7 +38,7 @@ export const viewinTab = (details: any, selectedOptions: any[]) => {
         ]);
     });
 
-    var dd: any = {
+    var dd= {
         content: [
             {
                 alignment: 'center',

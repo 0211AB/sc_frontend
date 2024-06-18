@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../../layout/DefaultLayout';
-import { createQuotation, viewLiveQuotation } from '../../utils/quotation'
+import { createQuotation , viewLiveQuotation } from '../../utils/quotation.js'
 import './NewQuotation.css'
 import toast, { Toaster } from 'react-hot-toast';
 import AuthContext from '../../store/AuthContext';

@@ -1,11 +1,11 @@
-import  pdfFonts from 'pdfmake/build/vfs_fonts';
-import  pdfMake from "pdfmake/build/pdfmake";
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { palaBase64 } from '../fonts/pala';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 pdfMake.vfs['Pala.ttf'] = palaBase64
 
-export const createQuotation = (details: any, selectedOptions: any[]) => {
+export const createQuotation = (details, selectedOptions) => {
     pdfMake.fonts = {
         Roboto: {
             normal: 'Roboto-Regular.ttf',
@@ -31,7 +31,7 @@ export const createQuotation = (details: any, selectedOptions: any[]) => {
         ]
     ];
 
-    selectedOptions.forEach((option: any, index: number) => {
+    selectedOptions.forEach((option, index) => {
         tableBody.push([
             { text: (index + 1).toString(), alignment: 'center', bold: false },
             { text: option.hsn_code ? option.hsn_code : '-', alignment: 'center', bold: false },
@@ -43,7 +43,7 @@ export const createQuotation = (details: any, selectedOptions: any[]) => {
     });
 
 
-    var dd: any = {
+    var dd = {
         info: {
             title: `Quotation_${details.company}`,
             author: 'Saraff Creations',
@@ -134,7 +134,7 @@ export const createQuotation = (details: any, selectedOptions: any[]) => {
     pdfMake.createPdf(dd, undefined, pdfMake.fonts).download(`Quotation_${details.company}`);
 }
 
-export const viewLiveQuotation = (details: any, selectedOptions: any[]) => {
+export const viewLiveQuotation = (details, selectedOptions) => {
     pdfMake.fonts = {
         Roboto: {
             normal: 'Roboto-Regular.ttf',
@@ -160,7 +160,7 @@ export const viewLiveQuotation = (details: any, selectedOptions: any[]) => {
         ]
     ];
 
-    selectedOptions.forEach((option: any, index: number) => {
+    selectedOptions.forEach((option, index) => {
         tableBody.push([
             { text: (index + 1).toString(), alignment: 'center', bold: false },
             { text: option.hsn_code ? option.hsn_code : '-', alignment: 'center', bold: false },
@@ -171,7 +171,7 @@ export const viewLiveQuotation = (details: any, selectedOptions: any[]) => {
         ]);
     });
 
-    var dd: any = {
+    var dd = {
         content: [
             {
                 image: 'header',
@@ -255,8 +255,8 @@ export const viewLiveQuotation = (details: any, selectedOptions: any[]) => {
     }
 
     const pdfDocGenerator = pdfMake.createPdf(dd);
-    pdfDocGenerator.getDataUrl((dataUrl: any) => {
-        let element: HTMLElement | null = document.querySelector('#quotationIframeContainer');
+    pdfDocGenerator.getDataUrl((dataUrl) => {
+        let element = document.querySelector('#quotationIframeContainer');
         if (element) {
             element.innerHTML = "";
         }
@@ -266,7 +266,7 @@ export const viewLiveQuotation = (details: any, selectedOptions: any[]) => {
     });
 }
 
-export const viewinTab = (details: any, selectedOptions: any[]) => {
+export const viewinTab = (details, selectedOptions) => {
     pdfMake.fonts = {
         Roboto: {
             normal: 'Roboto-Regular.ttf',
@@ -292,7 +292,7 @@ export const viewinTab = (details: any, selectedOptions: any[]) => {
         ]
     ];
 
-    selectedOptions.forEach((option: any, index: number) => {
+    selectedOptions.forEach((option, index) => {
         tableBody.push([
             { text: (index + 1).toString(), alignment: 'center', bold: false },
             { text: option.hsn_code ? option.hsn_code : '-', alignment: 'center', bold: false },
@@ -303,7 +303,7 @@ export const viewinTab = (details: any, selectedOptions: any[]) => {
         ]);
     });
 
-    var dd: any = {
+    var dd = {
         content: [
             {
                 image: 'header',

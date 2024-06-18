@@ -1,16 +1,18 @@
 {
   "compilerOptions": {
-      "module": "commonjs",
-      "esModuleInterop": true,
-      "target": "es6",
-      "moduleResolution": "node",
-      "outDir": "./dist",
-      "strict": true
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "target": "es6",
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "strict": true,
+    "composite": true
   },
   "include": [
-      "./src/**/*.ts"
-  ],
+    "./src/**/*.ts",
+    "src/utils/quotation.js"
+, "src/utils/invoice.js", "src/utils/brochure.js"  ],
   "exclude": [
-      "node_modules"
+    "node_modules"
   ]
 }
