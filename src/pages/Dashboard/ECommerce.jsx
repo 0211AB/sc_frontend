@@ -49,7 +49,7 @@ const ECommerce= () => {
   return (
     <DefaultLayout>
       {loading === true ? <Loader height='screen' /> : <><div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-        <CardDataStats title="Total Brochures" total={details.totalBrochures.toString()} rate="">
+        <CardDataStats title="Total Brochures" total={details.totalBrochures.toString()} rate="" url={'/brochures/all'}>
           <svg
             className="fill-primary dark:fill-white"
             width="22"
@@ -68,7 +68,7 @@ const ECommerce= () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Invoices" total={details.totalInvoices.toString()} rate="">
+        <CardDataStats title="Total Invoices" total={details.totalInvoices.toString()} rate="" url={'/invoices/all'}>
           <svg
             className="fill-primary dark:fill-white"
             width="20"
@@ -91,7 +91,7 @@ const ECommerce= () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Products" total={details.totalProducts.toString()} rate="">
+        <CardDataStats title="Total Products" total={details.totalProducts.toString()} rate="" url={'/products/all'}>
           <svg
             className="fill-primary dark:fill-white"
             width="22"
@@ -110,7 +110,7 @@ const ECommerce= () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Clients" total={details.totalClients.toString()} rate="">
+        <CardDataStats title="Total Clients" total={details.totalClients.toString()} rate="" url={'/clients'}>
           <svg
             className="fill-primary dark:fill-white"
             width="22"

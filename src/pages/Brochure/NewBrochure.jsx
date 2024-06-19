@@ -32,7 +32,7 @@ const NewBrochure = () => {
         setSelectedProducts(selectedProducts.filter(p => p._id !== productId));
     };
 
-    const handlePrint = async (e)=> {
+    const handlePrint = async (e) => {
         e.preventDefault();
 
         if (selectedProducts.length === 0) {
@@ -310,19 +310,22 @@ const NewBrochure = () => {
                                                 Tax Included
                                                 <div>
                                                     <label
-                                                        htmlFor="toggle3"
+                                                        htmlFor={`toggle` + p._id}
                                                         className="flex cursor-pointer select-none items-center"
                                                     >
                                                         <div className="relative">
                                                             <input
                                                                 type="checkbox"
-                                                                id="toggle3"
+                                                                id={`toggle` + p._id}
                                                                 className="sr-only"
-                                                                onChange={() => setSelectedProducts(prevProducts =>
-                                                                    prevProducts.map(product =>
-                                                                        product._id === p._id ? { ...product, sale_price_inclusive_tax: !p.sale_price_inclusive_tax } : product
+                                                                onChange={() => {
+                                                                    setSelectedProducts(prevProducts =>
+                                                                        prevProducts.map(product =>
+                                                                            product._id === p._id ? { ...product, sale_price_inclusive_tax: !p.sale_price_inclusive_tax } : product
+
+                                                                        )
                                                                     )
-                                                                )}
+                                                                }}
                                                             />
                                                             <div className="block h-6 w-10 rounded-full bg-meta-9 dark:bg-[#5A616B]"></div>
                                                             <div

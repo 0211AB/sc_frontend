@@ -86,7 +86,7 @@ const TableOne = ({ setSelectedBrand, clients }) => {
 };
 
 
-const ClientList= ({ selectedBrand, setSelectedBrand }) => {
+const ClientList = ({ selectedBrand, setSelectedBrand }) => {
   return (
     <div className="col-span-12 rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4 relative">
       <div className="absolute flex w-6 h-6 items-center justify-center rounded-full border-primary border-2 right-3 cursor-pointer" onClick={() => { setSelectedBrand(null) }}>
@@ -196,7 +196,7 @@ const Clients = () => {
 
     setLoading(true);
     try {
-      const body= {};
+      const body = {};
 
       if (name) body.name = name;
       if (address_line_1) body.address_line_1 = address_line_1;
@@ -286,7 +286,7 @@ const Clients = () => {
 
     setLoading(true);
     try {
-      const body= {};
+      const body = {};
 
       if (name) body.name = name;
       if (location) body.location = location;
