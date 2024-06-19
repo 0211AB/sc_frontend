@@ -188,7 +188,7 @@ const NewInvoice = () => {
     const [isCompanySelected, setIsCompanySelected] = useState(false);
     const [invoiceDetails, setinvoiceDetails] = useState({
         number: '',
-        date: new Date.getDate() + ' ' + months[new Date.getUTCMonth()] + ' ' + new Date.getFullYear(),
+        date: new Date().getDate() + ' ' + months[new Date().getUTCMonth()] + ' ' + new Date().getFullYear(),
         name: '',
         address: '',
         place_of_supply: '',
