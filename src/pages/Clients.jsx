@@ -8,7 +8,7 @@ import Loader from '../common/Loader';
 
 const TableOne = ({ setSelectedBrand, clients }) => {
   return (
-    <div className="h-full rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+    <div className="h-screen rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1 overflow-y-auto">
       <h4 className="mb-1 text-xl font-semibold text-black dark:text-white">
         All Clients
       </h4>
@@ -16,7 +16,7 @@ const TableOne = ({ setSelectedBrand, clients }) => {
         Select A Client To View Details
       </h4>}
 
-      <div className="flex flex-col">
+      <div className="flex flex-col overflow-y-auto">
         <div className="grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-5">
           <div className="p-2.5 xl:p-5">
             <h5 className="text-sm font-medium uppercase xsm:text-base">
@@ -323,7 +323,7 @@ const Clients = () => {
     <DefaultLayout>
       <Breadcrumb pageName="Clients" />
       <Toaster />
-      <div className="h-full mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5 items-stretch">
+      <div className="h-full mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
         <div className="col-span-12 xl:col-span-8">
           {loading === true ? <Loader height='screen' /> : <TableOne setSelectedBrand={setSelectedBrand} clients={clients} />}
         </div>

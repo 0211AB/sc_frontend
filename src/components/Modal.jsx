@@ -11,7 +11,6 @@ const Modal = ({ setShowModal, products, selectedProducts, setSelectedProducts }
   const handleAddProduct = (product) => {
     if (!selectedProducts.find(p => p._id === product._id)) {
       setSelectedProducts([...selectedProducts, product]);
-      setSearchTerm('')
     }
   };
 
@@ -54,7 +53,7 @@ const Modal = ({ setShowModal, products, selectedProducts, setSelectedProducts }
 
       <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
         <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-          <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg w-full">
+          <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-xl sm:max-w-xl w-full">
             <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4 ">
               <div className="sm:flex sm:items-start w-full">
                 <div className="mt-3 text-center sm:ml-4 sm:mt-0 w-full">
@@ -70,113 +69,115 @@ const Modal = ({ setShowModal, products, selectedProducts, setSelectedProducts }
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
-              <div className="mt-4 overflow-y-auto">
+              <div className="max-h-36 mt-4 overflow-y-auto px-1">
                 {searchTerm !== "" && filteredProducts.map(product => (
                   <div key={product._id} className="flex justify-between items-center border-b py-2 border-dashed">
                     <span>{product.name}</span>
                     <button
                       type="button"
-                      className="text-sm text-primary hover:underline"
-                      onClick={() => handleAddProduct(product)}
+                      className={selectedProducts.some(p => p._id === product._id) === false ? "text-sm text-primary hover:underline" : "text-sm text-red-400 hover:underline"}
+                      onClick={() => selectedProducts.some(p => p._id === product._id) === false ? handleAddProduct(product) : handleRemoveProduct(product._id)}
                     >
-                      Add
+                      {selectedProducts.some(p => p._id === product._id) === false ? 'Add' : 'Remove'}
                     </button>
                   </div>
                 ))}
               </div>
               <div className="mt-4">
                 <h4 className="font-medium">Selected Products</h4>
-                {selectedProducts.map((product, index) => (
-                  <div key={product._id} className={`flex items-center flex-col justify-center mt-2 lg:flex-row gap-2 pb-3 ${index === selectedProducts.length - 1 ? '' : 'border-b'}`} >
-                    <div className="flex flex-col justify-center items-center">
-                      <p className="text-lg text-black break-all">{product.name}</p>
-                      <p className="text-sm text-gray-500">Cost Price: {product.cost_price}</p>
-                      <p className="text-sm text-gray-500">{product.cost_price_inclusive_tax ? '(Including Taxes)' : '(Excluding Taxes)'}</p>
-                      <button
-                        type="button"
-                        className="ml-2 text-sm text-red-500 hover:underline"
-                        onClick={() => handleRemoveProduct(product._id)}
-                      >
-                        Remove
-                      </button>
-                    </div>
-                    <div className="flex items-center flex-row flex-wrap w-3/4">
-                      <div className="flex justify-evenly">
-                        <div className="flex flex-col items-center justify-between w-2/5">
-                          Quantity
-                          <input
-                            type="number"
-                            placeholder="Quantity"
-                            className="p-1 border border-gray-300 rounded-md w-full"
-                            value={product.quantity}
-                            onChange={(e) => {
-                              setSelectedProducts(prevProducts =>
-                                prevProducts.map(p =>
-                                  product._id === p._id ? { ...p, quantity: e.target.value } : p
-                                )
-                              );
-                            }}
-                            min="1"
-                          />
-                        </div>
-                        <div className="flex items-center justify-between flex-col w-2/5">
-                          Tax Rate (%)
-                          <input
-                            type="number"
-                            placeholder="Tax Rate"
-                            className="p-1 border border-gray-300 rounded-md w-full"
-                            value={product.gst}
-                            onChange={(e) => {
-                              setSelectedProducts(prevProducts =>
-                                prevProducts.map(p =>
-                                  product._id === p._id ? { ...p, gst: e.target.value } : p
-                                )
-                              );
-                            }}
-                            min="1"
-                          />
-                        </div>
+                <div className="max-h-[17rem] overflow-y-auto">
+                  {selectedProducts.map((product, index) => (
+                    <div key={product._id} className={`flex items-center flex-col justify-center mt-2 lg:flex-row gap-2 pb-3 ${index === selectedProducts.length - 1 ? '' : 'border-b'}`} >
+                      <div className="flex flex-col justify-center items-center w-48">
+                        <p className="text-lg text-black break-word text-center">{product.name}</p>
+                        <p className="text-sm text-gray-500">Cost Price: {product.cost_price}</p>
+                        <p className="text-sm text-gray-500">{product.cost_price_inclusive_tax ? '(Including Taxes)' : '(Excluding Taxes)'}</p>
+                        <button
+                          type="button"
+                          className="ml-2 text-sm text-red-500 hover:underline"
+                          onClick={() => handleRemoveProduct(product._id)}
+                        >
+                          Remove
+                        </button>
                       </div>
-                      <div className="flex gap-2 justify-evenly">
-                        <div className="flex items-center justify-between flex-col w-2/5">
-                          Rate
-                          <input
-                            type="number"
-                            placeholder="Rate"
-                            className="p-1 border border-gray-300 rounded-md w-full"
-                            value={product.rate}
-                            onChange={(e) => {
-                              setSelectedProducts(prevProducts =>
-                                prevProducts.map(p =>
-                                  product._id === p._id ? { ...p, rate: e.target.value } : p
-                                )
-                              );
-                            }}
-                            min="1"
-                          />
+                      <div className="flex items-center flex-row flex-wrap w-3/4">
+                        <div className="flex justify-evenly">
+                          <div className="flex flex-col items-center justify-between w-2/5">
+                            Quantity
+                            <input
+                              type="number"
+                              placeholder="Quantity"
+                              className="p-1 border border-gray-300 rounded-md w-full"
+                              value={product.quantity}
+                              onChange={(e) => {
+                                setSelectedProducts(prevProducts =>
+                                  prevProducts.map(p =>
+                                    product._id === p._id ? { ...p, quantity: e.target.value } : p
+                                  )
+                                );
+                              }}
+                              min="1"
+                            />
+                          </div>
+                          <div className="flex items-center justify-between flex-col w-2/5">
+                            Tax Rate (%)
+                            <input
+                              type="number"
+                              placeholder="Tax Rate"
+                              className="p-1 border border-gray-300 rounded-md w-full"
+                              value={product.gst}
+                              onChange={(e) => {
+                                setSelectedProducts(prevProducts =>
+                                  prevProducts.map(p =>
+                                    product._id === p._id ? { ...p, gst: e.target.value } : p
+                                  )
+                                );
+                              }}
+                              min="1"
+                            />
+                          </div>
                         </div>
-                        <div className="flex items-center justify-between flex-col w-2/5">
-                          HSN Code
-                          <input
-                            type="number"
-                            placeholder="HSN Code"
-                            className="p-1 border border-gray-300 rounded-md w-full"
-                            value={product.hsn_code}
-                            onChange={(e) => {
-                              setSelectedProducts(prevProducts =>
-                                prevProducts.map(p =>
-                                  product._id === p._id ? { ...p, hsn_code: e.target.value } : p
-                                )
-                              );
-                            }}
-                            min="1"
-                          />
+                        <div className="flex gap-2 justify-evenly">
+                          <div className="flex items-center justify-between flex-col w-2/5">
+                            Rate
+                            <input
+                              type="number"
+                              placeholder="Rate"
+                              className="p-1 border border-gray-300 rounded-md w-full"
+                              value={product.rate}
+                              onChange={(e) => {
+                                setSelectedProducts(prevProducts =>
+                                  prevProducts.map(p =>
+                                    product._id === p._id ? { ...p, rate: e.target.value } : p
+                                  )
+                                );
+                              }}
+                              min="1"
+                            />
+                          </div>
+                          <div className="flex items-center justify-between flex-col w-2/5">
+                            HSN Code
+                            <input
+                              type="number"
+                              placeholder="HSN Code"
+                              className="p-1 border border-gray-300 rounded-md w-full"
+                              value={product.hsn_code}
+                              onChange={(e) => {
+                                setSelectedProducts(prevProducts =>
+                                  prevProducts.map(p =>
+                                    product._id === p._id ? { ...p, hsn_code: e.target.value } : p
+                                  )
+                                );
+                              }}
+                              min="1"
+                            />
+                          </div>
                         </div>
-                      </div>
 
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
             <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">

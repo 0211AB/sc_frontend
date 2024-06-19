@@ -2,11 +2,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../../layout/DefaultLayout';
 import { createQuotation, viewLiveQuotation } from '../../utils/quotation'
-import './NewQuotation.css'
 import toast, { Toaster } from 'react-hot-toast';
 import AuthContext from '../../store/AuthContext';
 import Loader from '../../common/Loader/index';
 import Modal from '../../components/Modal';
+import { useParams } from 'react-router-dom';
 
 const SelectCompany = ({ selectedOption, setIsOptionSelected, isOptionSelected, setSelectedOption }) => {
     const authCtx = useContext(AuthContext)
@@ -93,17 +93,14 @@ const SelectCompany = ({ selectedOption, setIsOptionSelected, isOptionSelected, 
     );
 };
 
-const months = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-];
 
-const NewQuotation = () => {
+const EditQuotation = () => {
     const authCtx = useContext(AuthContext)
+    const { id } = useParams()
     const [showModal, setShowModal] = useState(false);
     const [quotationDetails, setQuotationDetails] = useState({
         ref: '',
-        date: new Date().getDate() + ' ' + months[new Date().getUTCMonth()] + ' ' + new Date().getFullYear(),
+        date: new Date().toDateString(),
         company: '',
         address_line_1: '',
         address_line_2: '',
@@ -149,8 +146,52 @@ const NewQuotation = () => {
             }
         }
 
-        if (loading === true)
+        const getQuotation = async () => {
+            setLoading(true);
+            try {
+                const res = await fetch(`${process.env.REACT_APP_BASE_URL}/quotation/one/${id}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer :${authCtx.token}`
+                    }
+                });
+
+                const res_data = await res.json();
+                if (res.status !== 200) {
+                    toast.error(res_data.message);
+                } else {
+                    console.log(res_data)
+                    setSelectedProducts(res_data.items)
+                    setQuotationDetails({
+                        ref: res_data.ref,
+                        date: res_data.date,
+                        company: res_data.company,
+                        address_line_1: res_data.address_line_1,
+                        address_line_2: res_data.address_line_2,
+                        address_line_3: res_data.address_line_3,
+                        address_line_4: res_data.address_line_4,
+                        dear: res_data.dear ? res_data.dear : 'Sir',
+                        subject: res_data.subject,
+                        introduction: res_data.introduction,
+                        terms: res_data.terms,
+                        conclusion: res_data.conclusion,
+                        name: res_data.name,
+                        details: res_data.details
+                    })
+                    console.log(res_data)
+                }
+            } catch (e) {
+                toast.error(e.message);
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        if (loading === true) {
             fetchProducts()
+            getQuotation();
+        }
         // eslint-disable-next-line
     }, [])
 
@@ -176,8 +217,8 @@ const NewQuotation = () => {
         setLoading(true)
 
         try {
-            const res = await fetch(`${process.env.REACT_APP_BASE_URL}/quotation/create`, {
-                method: "POST",
+            const res = await fetch(`${process.env.REACT_APP_BASE_URL}/quotation/update/${id}`, {
+                method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer :${authCtx.token}`
@@ -186,7 +227,7 @@ const NewQuotation = () => {
             });
 
             const res_data = await res.json();
-            if (res.status !== 201) {
+            if (res.status !== 200) {
                 toast.error(res_data.message);
             } else {
                 createQuotation(quotationDetails, selectedProducts)
@@ -196,7 +237,6 @@ const NewQuotation = () => {
             toast.error(e.message);
         } finally {
             setLoading(false)
-            setSelectedProducts([])
         }
     }
 
@@ -318,7 +358,7 @@ const NewQuotation = () => {
                                 </div>
 
                                 <div className='flex justify-center items-center mb-4.5 flex-col'>
-                                    {selectedProducts.map((p, index) => <h3 className='text-lg mb-2'>( {index + 1} ) {p.quantity} {p.name} @ {p.rate}</h3>)}
+                                    {selectedProducts.map((p, index) => <h3 className='text-lg mb-2' key={index}>( {index + 1} ) {p.quantity} {p.name} @ {p.rate}</h3>)}
                                     <button className="flex w-2/3 justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90" onClick={(e) => { e.preventDefault(); setShowModal(true) }}>
                                         Add Products
                                     </button>
@@ -371,7 +411,7 @@ const NewQuotation = () => {
                                 </div>
 
                                 <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90" onClick={handleGeneratePDF}>
-                                    Generate Quotation
+                                    Update Quotation
                                 </button>
                             </div>
                         </form>
@@ -397,4 +437,4 @@ const NewQuotation = () => {
     );
 };
 
-export default NewQuotation;
+export default EditQuotation;

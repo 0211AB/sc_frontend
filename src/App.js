@@ -19,6 +19,7 @@ import NewBrochure from './pages/Brochure/NewBrochure';
 import Brochure from './pages/Brochure/Brochure';
 import ProductDetails from './pages/Product/ProductDetails';
 import EditProduct from './pages/Product/EditProduct';
+import EditQuotation from './pages/Quotation/EditQuotation';
 
 function App() {
   const authCtx = useContext(AuthContext)
@@ -75,21 +76,21 @@ function App() {
             </>
           }
         />
-         <Route
+        <Route
           path="product/detail/:id"
           element={
             <>
-              <PageTitle title="Product Details | Saraff Creations" />  
+              <PageTitle title="Product Details | Saraff Creations" />
               <ProductDetails />
             </>
           }
         />
-         <Route
+        <Route
           path="product/edit/:id"
           element={
             <>
-              <PageTitle title="Product Details | Saraff Creations" />  
-              <EditProduct/>
+              <PageTitle title="Product Details | Saraff Creations" />
+              <EditProduct />
             </>
           }
         />
@@ -99,6 +100,15 @@ function App() {
             <>
               <PageTitle title="New Quotation | Saraff Creations" />
               <NewQuotation />
+            </>
+          }
+        />
+        <Route
+          path="/quotations/edit/:id"
+          element={
+            <>
+              <PageTitle title="Edit Quotation | Saraff Creations" />
+              <EditQuotation />
             </>
           }
         />

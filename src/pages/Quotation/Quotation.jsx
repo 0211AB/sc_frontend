@@ -5,9 +5,11 @@ import AuthContext from '../../store/AuthContext';
 import toast, { Toaster } from 'react-hot-toast';
 import Loader from '../../common/Loader';
 import { createQuotation, viewinTab } from '../../utils/quotation'
+import { useNavigate } from 'react-router-dom';
 
 const QuotationsTable = () => {
   const authCtx = useContext(AuthContext)
+  const navigate = useNavigate()
   const [quotations, setQuotations] = useState([])
   const [loading, setLoading] = useState(true)
   const [showFilters, setShowFilters] = useState(false);
@@ -139,7 +141,12 @@ const QuotationsTable = () => {
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                   <div className="flex items-center space-x-3.5">
-                    <button className="hover:text-primary" onClick={() => { viewinTab(item, item.items) }}>
+                    <button className="hover:text-primary flex flex-col justify-center items-center" onClick={() => { navigate(`/quotations/edit/${item?._id}`) }}>
+                      <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" className="fill-current"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <g id="Complete"> <g id="edit"> <g> <path d="M20,16v4a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V6A2,2,0,0,1,4,4H8" fill="none" stroke="gray" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"></path> <polygon fill="none" points="12.5 15.8 22 6.2 17.8 2 8.3 11.5 8 16 12.5 15.8" stroke="gray" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"></polygon> </g> </g> </g> </g></svg>
+                      <p className='text-xs mt-1'>Edit</p>
+                    </button>
+
+                    <button className="hover:text-primary flex flex-col justify-center items-center" onClick={() => { viewinTab(item, item.items) }}>
                       <svg
                         className="fill-current"
                         width="18"
@@ -157,8 +164,9 @@ const QuotationsTable = () => {
                           fill=""
                         />
                       </svg>
+                      <p className='text-xs mt-1'>View</p>
                     </button>
-                    <button className="hover:text-primary" onClick={() => { createQuotation(item, item.items) }}>
+                    <button className="hover:text-primary flex flex-col justify-center items-center" onClick={() => { createQuotation(item, item.items) }}>
                       <svg
                         className="fill-current"
                         width="18"
@@ -176,6 +184,7 @@ const QuotationsTable = () => {
                           fill=""
                         />
                       </svg>
+                      <p className='text-xs mt-1'>Download</p>
                     </button>
                   </div>
                 </td>
@@ -205,7 +214,7 @@ const QuotationsTable = () => {
 };
 
 
-const Quotation= () => {
+const Quotation = () => {
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Quotations" />
