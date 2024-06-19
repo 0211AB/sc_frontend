@@ -1,12 +1,30 @@
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../../layout/DefaultLayout';
-import { Carousel } from "@material-tailwind/react";
+// import { Carousel,ThemeProvider } from "@material-tailwind/react";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 import { useNavigate, useParams } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import AuthContext from '../../store/AuthContext';
 import Loader from '../../common/Loader';
 import defaultProduct from '../../images/default-product-image.png'
+
+const responsive = {
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2,
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+    slidesToSlide: 1 // optional, default to 1.
+  }
+};
 
 const ProductDetails = () => {
   const { id } = useParams()
@@ -50,23 +68,23 @@ const ProductDetails = () => {
           <button className="absolute top-2 right-2 bg-primary text-white px-3 py-1 rounded-md z-30" onClick={() => { navigate(`/product/edit/${id}`) }}>
             Edit Product
           </button>
-          <Carousel className="rounded-xl" autoplay loop>
-            {details.images.map((img, index) => {
-              return <img
-                key={index}
-                src={img}
-                alt={`product ${index + 1}`}
+            <div className="rounded-xl flex items-center p-2 m-5 gap-2 overflow-x-auto">
+              {details.images.map((img, index) => {
+                return <img
+                  key={index}
+                  src={img}
+                  alt={`product ${index + 1}`}
+                  className="h-50 md:h-90 w-auto object-contain"
+                />
+              })}
+              {details.images.length === 0 && <img src={defaultProduct}
+                alt='default product'
                 className="h-full w-full object-contain"
-              />
-            })}
-            {details.images.length === 0 && <img src={defaultProduct}
-              alt='default product'
-              className="h-full w-full object-contain"
-            />}
-          </Carousel>
+              />}
+            </div>
         </div>
         <div className="px-4 pb-6 text-center lg:pb-8 xl:pb-11.5">
-          <div className="mt-4">
+          <div className="mt-10">
             <h3 className="mb-1.5 text-2xl font-semibold text-black dark:text-white">
               {details.name}
             </h3>
@@ -74,7 +92,7 @@ const ProductDetails = () => {
             <div className="mx-auto mt-4.5 mb-5.5 grid max-w-150 grid-cols-3 rounded-md border border-stroke py-2.5 shadow-1 dark:border-strokedark dark:bg-[#37404F]">
               <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
                 <span className="font-semibold text-black dark:text-white">
-                  Rs {details.cost_price}0000
+                  Rs {details.cost_price}
                 </span>
                 <span className="text-sm">Cost Price</span>
               </div>

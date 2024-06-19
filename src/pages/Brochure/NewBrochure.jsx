@@ -150,7 +150,7 @@ const NewBrochure = () => {
                         object-fit:contain;
                     }
     
-                    .image-container.four-images {
+                    .image-container.four-images img{
                         height: 48%;
                         width: 48%;
                         object-fit:contain;

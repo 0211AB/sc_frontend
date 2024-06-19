@@ -2,7 +2,7 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 const withMT = require('@material-tailwind/react/utils/withMT');
 
 module.exports = withMT({
-  content: ['./index.html', './src/**/*.{js,jsx}'],
+  content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
   darkMode: 'class',
   theme: {
     fontFamily: {

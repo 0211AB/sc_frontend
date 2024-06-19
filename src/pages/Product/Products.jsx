@@ -14,6 +14,7 @@ const Products = () => {
   const [images, setImages] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([])
   const [selectedColors, setSelectedColors] = useState([])
+  const [initial]=useState([])
 
   const handleFileUpload = (event) => {
     const file = event.target.files?.[0];
@@ -209,7 +210,7 @@ const Products = () => {
                     />
                   </div>
 
-                  <MultiSelect id="colors" setSelectedColors={setSelectedColors} initiallySelectedColorsForEdit={[]} />
+                  <MultiSelect id="colors" setSelectedColors={setSelectedColors} initiallySelectedColorsForEdit={initial} />
 
                   <div className="mb-5.5">
                     <label

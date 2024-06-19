@@ -11,7 +11,7 @@ const MultiSelect = ({ id, setSelectedColors, initiallySelectedColorsForEdit }) 
     const loadOptions = () => {
       const select = document.getElementById(id);
       if (select) {
-        const newOptions= [];
+        const newOptions = [];
         const newSelected = [];
 
         for (let i = 0; i < select.options.length; i++) {
@@ -30,7 +30,7 @@ const MultiSelect = ({ id, setSelectedColors, initiallySelectedColorsForEdit }) 
     };
 
     loadOptions();
-  }, [id,initiallySelectedColorsForEdit]);
+  }, [id, initiallySelectedColorsForEdit]);
 
   const open = () => {
     setShow(!show);
@@ -97,7 +97,7 @@ const MultiSelect = ({ id, setSelectedColors, initiallySelectedColorsForEdit }) 
       </label>
       <div>
         <select className="hidden" id={id}>
-          <option value="red" className='text-red-950'>Red</option>
+          <option value="red">Red</option>
           <option value="orange">Orange</option>
           <option value="brown">Brown</option>
           <option value="green">Green</option>
