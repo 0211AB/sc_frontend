@@ -1,6 +1,18 @@
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
+function makeid(length) {
+  let result = '';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const charactersLength = characters.length;
+  let counter = 0;
+  while (counter < length) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    counter += 1;
+  }
+  return result;
+}
+
 const Modal = ({ setShowModal, products, selectedProducts, setSelectedProducts }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -9,10 +21,19 @@ const Modal = ({ setShowModal, products, selectedProducts, setSelectedProducts }
   );
 
   const handleAddProduct = (product) => {
+    console.log(product)
     if (!selectedProducts.find(p => p._id === product._id)) {
       setSelectedProducts([...selectedProducts, product]);
     }
   };
+
+  const handleAddNewProduct = () => {
+    setSelectedProducts([...selectedProducts, {
+      "_id": makeid(10),
+      "gst": "",
+      "hsn_code": "",
+    }])
+  }
 
   const handleRemoveProduct = (productId) => {
     setSelectedProducts(selectedProducts.filter(p => p._id !== productId));
@@ -20,7 +41,13 @@ const Modal = ({ setShowModal, products, selectedProducts, setSelectedProducts }
 
   const handleConfirm = () => {
     let handlingErrors = false;
-    selectedProducts.forEach((product) => {
+    selectedProducts.forEach((product, index) => {
+      if (product.name === '' || product.name === undefined || product.name === null) {
+        toast.error(`Name For Product ${index + 1} is required`);
+        handlingErrors = true;
+        return;
+      }
+
       if (product.gst === '' || product.gst === undefined || product.gst === null) {
         toast.error(`GST For ${product.name} is required`);
         handlingErrors = true;
@@ -69,6 +96,13 @@ const Modal = ({ setShowModal, products, selectedProducts, setSelectedProducts }
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
+              {searchTerm === "" && <button
+                type="button"
+                className={"text-sm text-primary hover:underline w-full text-right"}
+                onClick={() => handleAddNewProduct()}
+              >
+                Add Product Not In Database
+              </button>}
               <div className="max-h-36 mt-4 overflow-y-auto px-1">
                 {searchTerm !== "" && filteredProducts.map(product => (
                   <div key={product._id} className="flex justify-between items-center border-b py-2 border-dashed">
@@ -89,9 +123,21 @@ const Modal = ({ setShowModal, products, selectedProducts, setSelectedProducts }
                   {selectedProducts.map((product, index) => (
                     <div key={product._id} className={`flex items-center flex-col justify-center mt-2 lg:flex-row gap-2 pb-3 ${index === selectedProducts.length - 1 ? '' : 'border-b'}`} >
                       <div className="flex flex-col justify-center items-center w-48">
-                        <p className="text-lg text-black break-word text-center">{product.name}</p>
-                        <p className="text-sm text-gray-500">Cost Price: {product.cost_price}</p>
-                        <p className="text-sm text-gray-500">{product.cost_price_inclusive_tax ? '(Including Taxes)' : '(Excluding Taxes)'}</p>
+                        {product.cost_price ? <p className="text-lg text-black break-word text-center">{product.name}</p> : <input
+                          type="text"
+                          placeholder="Name Of Item"
+                          className="p-1 border border-gray-300 rounded-md w-full"
+                          value={product.name || ""}
+                          onChange={(e) => {
+                            setSelectedProducts(prevProducts =>
+                              prevProducts.map(p =>
+                                product._id === p._id ? { ...p, name: e.target.value } : p
+                              )
+                            );
+                          }}
+                        />}
+                        {product.cost_price && <p className="text-sm text-gray-500">Cost Price: {product.cost_price}</p>}
+                        {product.cost_price_inclusive_tax && <p className="text-sm text-gray-500">{product.cost_price_inclusive_tax ? '(Including Taxes)' : '(Excluding Taxes)'}</p>}
                         <button
                           type="button"
                           className="ml-2 text-sm text-red-500 hover:underline"

@@ -15,7 +15,7 @@ const months = [
     'July', 'August', 'September', 'October', 'November', 'December'
 ];
 
-const SelectCompany= ({ setIsCompanySelected, isCompanySelected, setselectedCompany }) => {
+const SelectCompany = ({ setIsCompanySelected, isCompanySelected, setselectedCompany }) => {
     const authCtx = useContext(AuthContext)
     const [clients, setClients] = useState([])
     const [loading, setLoading] = useState(true)
@@ -96,7 +96,7 @@ const SelectCompany= ({ setIsCompanySelected, isCompanySelected, setselectedComp
     );
 };
 
-const SelectState= ({ invoiceDetails, setinvoiceDetails, type }) => {
+const SelectState = ({ invoiceDetails, setinvoiceDetails, type }) => {
     const [selectedCompany, setselectedCompany] = useState('');
     const [isCompanySelected, setIsCompanySelected] = useState(false);
 
@@ -408,8 +408,9 @@ const NewInvoice = () => {
                                     <div className='flex justify-end w-full'>
                                         <label
                                             htmlFor="checkboxLabelOne"
-                                            className="flex cursor-pointer select-none items-center"
+                                            className="flex cursor-pointer select-none items-center gap-2"
                                         >
+                                            Tax Is Payable On Reverse Charge
                                             <div className="relative">
                                                 <input
                                                     type="checkbox"
@@ -418,15 +419,25 @@ const NewInvoice = () => {
                                                     onChange={() => { setinvoiceDetails({ ...invoiceDetails, can_reverse: !invoiceDetails.can_reverse }) }}
                                                 />
                                                 <div
-                                                    className={`mr-4 flex h-5 w-5 items-center justify-center rounded border ${invoiceDetails.can_reverse && 'border-primary bg-gray dark:bg-transparent'
+                                                    className={`mr-4 flex h-5 w-full gap-2 items-center justify-center rounded border my-1 ${invoiceDetails.can_reverse && 'border-primary bg-gray dark:bg-transparent'
                                                         }`}
                                                 >
                                                     <span
                                                         className={`h-2.5 w-2.5 rounded-sm ${invoiceDetails.can_reverse && 'bg-primary'}`}
                                                     ></span>
+                                                    YES
+                                                </div>
+                                                <div
+                                                    className={`mr-4 flex h-5 w-full gap-2 items-center justify-center rounded border my-1 ${!invoiceDetails.can_reverse && 'border-primary bg-gray dark:bg-transparent'
+                                                        }`}
+                                                >
+                                                    <span
+                                                        className={`h-2.5 w-2.5 rounded-sm ${!invoiceDetails.can_reverse && 'bg-primary'}`}
+                                                    ></span>
+                                                    NO
                                                 </div>
                                             </div>
-                                            Tax Is Payable On Reverse Charge
+
                                         </label>
                                     </div>
                                 </div>
@@ -492,8 +503,9 @@ const NewInvoice = () => {
                                 <div className='flex justify-end w-full my-2'>
                                     <label
                                         htmlFor="checkboxLabelTwo"
-                                        className="flex cursor-pointer select-none items-center"
+                                        className="flex cursor-pointer select-none items-center gap-2"
                                     >
+                                        Tax Type is IGST
                                         <div className="relative">
                                             <input
                                                 type="checkbox"
@@ -502,15 +514,22 @@ const NewInvoice = () => {
                                                 onChange={() => { setinvoiceDetails({ ...invoiceDetails, isIGST: !invoiceDetails.isIGST }) }}
                                             />
                                             <div
-                                                className={`mr-4 flex h-5 w-5 items-center justify-center rounded border ${invoiceDetails.isIGST && 'border-primary bg-gray dark:bg-transparent'
+                                                className={`mr-4 flex h-5 w-full gap-2 items-center justify-center rounded border ${invoiceDetails.isIGST && 'border-primary bg-gray dark:bg-transparent'
                                                     }`}
                                             >
                                                 <span
                                                     className={`h-2.5 w-2.5 rounded-sm ${invoiceDetails.isIGST && 'bg-primary'}`}
                                                 ></span>
+                                                YES
+                                            </div>
+                                            <div
+                                                className={`mr-4 flex h-5 w-full gap-2 items-center justify-center rounded border my-1 ${!invoiceDetails.isIGST && 'border-primary bg-gray dark:bg-transparent'}`}
+                                            >
+                                                <span
+                                                    className={`h-2.5 w-2.5 rounded-sm ${!invoiceDetails.isIGST && 'bg-primary'}`}
+                                                ></span> NO
                                             </div>
                                         </div>
-                                        Tax Type is IGST
                                     </label>
                                 </div>
 
